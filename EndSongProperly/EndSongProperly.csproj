@@ -17,27 +17,25 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Release-Mono' ">
     <Optimize Condition=" '$(Optimize)' == '' ">true</Optimize>
     <DefineConstants>TRACE;TAIKO_MONO;</DefineConstants>
-	<GameDir>C:\Other\Tako\Taiko\TDMX\Taiko no Tatsujin PC Debug</GameDir>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug-Mono' ">
     <DebugSymbols Condition=" '$(DebugSymbols)' == '' ">true</DebugSymbols>
     <Optimize Condition=" '$(Optimize)' == '' ">false</Optimize>
     <DefineConstants>TRACE;TAIKO_MONO;</DefineConstants>
-	<GameDir>C:\Other\Tako\Taiko\TDMX\Taiko no Tatsujin PC Debug</GameDir>
   </PropertyGroup>
 
   <PropertyGroup>
     <TargetFramework Condition="$(DefineConstants.Contains('TAIKO_IL2CPP'))">net6.0</TargetFramework>
     <TargetFramework Condition="$(DefineConstants.Contains('TAIKO_MONO'))">net48</TargetFramework>
     <AssemblyName>com.DB.EndSongProperly</AssemblyName>
-    <Description>A variety of separate modes created by DB.</Description>
-    <Version>1.0.0</Version>
+    <Description>This is a TDMX mod to end songs when the chart ends, rather than when the song ends.</Description>
+    <Version>0.1.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <RootNamespace>EndSongProperly</RootNamespace>
     <PackageId>EndSongProperly</PackageId>
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>0.1.0</PackageVersion>
     <Configurations>Release-IL2CPP;Release-Mono;Debug-IL2CPP;Debug-Mono</Configurations>
     <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
