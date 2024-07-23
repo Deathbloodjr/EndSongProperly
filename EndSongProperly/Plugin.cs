@@ -6,6 +6,7 @@ using System.Collections;
 using UnityEngine;
 using BepInEx.Configuration;
 using EndSongProperly.Patches;
+using System.IO;
 
 #if TAIKO_IL2CPP
 using BepInEx.Unity.IL2CPP.Utils;
@@ -26,7 +27,7 @@ namespace EndSongProperly
         public new static ManualLogSource Log;
 
         public ConfigEntry<bool> ConfigEnabled;
-        public ConfigEntry<bool> ConfigExamplesEnabled;
+        public ConfigEntry<string> ConfigSongIdListFilePath;
 
         public ConfigEntry<bool> ConfigLoggingEnabled;
         public ConfigEntry<int> ConfigLoggingDetailLevelEnabled;
@@ -51,15 +52,15 @@ namespace EndSongProperly
 
         private void SetupConfig()
         {
-            // I never really used this
-            // I'd rather just use a folder in BepInEx's folder for storing information
-            // I tend to put data in BepInEx/data/<ModName> now
-
             ConfigEnabled = Config.Bind("General",
                 "Enabled",
                 true,
                 "Enables the mod.");
 
+            ConfigSongIdListFilePath = Config.Bind("General",
+                "SongIdListFilePath",
+                Path.Combine("BepInEx", "data", "EndSongProperly", "EndSongProperlySongIds.txt"),
+                "Enables the mod.");
 
             ConfigLoggingEnabled = Config.Bind("Debug",
                 "LoggingEnabled",
@@ -79,6 +80,11 @@ namespace EndSongProperly
 
             if (ConfigEnabled.Value)
             {
+                if (!Directory.Exists(Path.GetDirectoryName(ConfigSongIdListFilePath.Value)))
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(ConfigSongIdListFilePath.Value));
+                }
+                EndSongPatch.InitializeSongIdList();
                 _harmony.PatchAll(typeof(EndSongPatch));
                 Log.LogInfo($"Plugin {PluginInfo.PLUGIN_NAME} is loaded!");
             }
